@@ -43,7 +43,7 @@ function callAjax(){
            console.log(data.results)
            for (var i=0; i<data.results.length;i++){
 
-            //
+            //HANDLEBARS
               //il source mi restituisce il div per intero che ho inserito nell'html
               var source = $(".global-film").text();
 
@@ -63,7 +63,7 @@ function callAjax(){
               $(".blocco-film").append(html);
            }
            //ripulisco 
-            /* $("#my_input").val("")    */
+            $("#my_input").val("")   
          },
          error: function (richiesta, stato, errori) {
             alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
