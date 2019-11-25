@@ -17,4 +17,54 @@ Lingua
 Voto
  */
 
- 
+$(document).ready(function () {
+
+   //imposto una variabile search che corrisponde al mio tasto cerca
+   var search = $("#my_search");
+
+   //imposto che al click della mia var search viene richiamata la funzione esterna
+   search.click(callAjax);
+
+});
+
+
+
+function callAjax() {
+   
+
+      //salvo una variabile che include il valore da me inserito dall'utente
+      var userInput = $("#my_input").val();
+      console.log("stai cercando" , userInput)
+      
+      $.ajax({
+         url: "https://api.themoviedb.org/3/search/movie?api_key=86ad7638c6e9361746024a7df74fcc2a&query=" + userInput,
+         method: "GET",
+         success: function (data) {
+           console.log(data.results)
+           for (var i=0; i<data.results.length;i++){
+              //il source mi restituisce il div per intero che ho inserito nell'html
+              var source = $(".global-film").text();
+
+              var template = Handlebars.compile(source);
+
+              var globalFilm  = {
+                 titolo: data.results[i].title,
+                 titoloOriginale: data.results[i].original_title,
+                 lingua: data.results[i].original_language,
+                 voto: data.results[i].vote_average
+              }
+              var html = template(globalFilm);
+              console.log(html);
+
+              $(".blocco-film").append(html);
+           }
+               
+         },
+         error: function (richiesta, stato, errori) {
+            alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
+        }
+      })
+}
+
+
+

@@ -11,30 +11,40 @@
     <title>Boolflix | Marco Rispoli</title>
 </head>
 <body>
-   <!--Navbar-->
-   <nav class="navbar navbar-expand-lg navbar-dark indigo mb-4">
-   
-      <!-- Navbar brand -->
-      <a class="navbar-brand" href="#">BoolFlix</a>
-   
-      <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-   
-         <form class="form-inline ml-auto">
-            <div class="md-form my-0">
-               <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            </div>
-            <button href="#!" class="btn btn-outline-white btn-md my-0 ml-sm-2" type="submit">Search</button>
-         </form>
-   
+   <div class="container-fluid my_style-container">
+      <div class="row">
+         <div class="col-4">
+            <h2 class="logo">Boolflix</h2>
+         </div>
+         <div class="col-8 d-flex justify-content-end">
+            <input id="#my_input" type="text">
+            <button id="#my_search">Cerca</button>
+            
+         </div>
       </div>
-      <!-- Collapsible content -->
+      <div class="row">
+         <div class="col-12">
+            <div class="blocco-film">
+               <!-- BLOCCO CHE VERRà RIEMPITO CON HANDLEBARS -->
+            </div>
+         </div>
+      </div>
+   </div>
    
-   </nav>
    
-    
     <!-- CDN JQUERY 3.3.1 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- HANDLEBARS -->
+   <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+   <script class="global-film" type="text/x-handlebars-template">
+      <div class="film">
+            <h2 class="titolo">{{titolo}}</h3>
+            <h2 class="author">{{titoloOriginale}}</h2>
+            <p class="lingua">{{lingua}}</p>
+            <p class="voto">{{voto}}</p>
+      </div>
+               
+           </script>
     <!-- MIO SCRIPT -->
     <script src="script/script.js"></script>
 </body>
