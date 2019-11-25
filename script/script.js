@@ -28,6 +28,15 @@ $(document).ready(function () {
       callAjax();
    });
 
+   $("#my_input").keyup(function(k){
+      console.log(k.keycode)
+      if (k.keyCode == "13"){
+
+         $(".blocco-film").html("")
+         callAjax();
+      }
+   });
+
 });
 
 
