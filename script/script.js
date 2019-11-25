@@ -53,7 +53,7 @@ function callAjax(){
 
               var globalFilm  = {
                  titolo: elementi.title,
-                 imglink: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/' + elementi.poster_path,
+                 imglink: 'https://image.tmdb.org/t/p/w500' + elementi.poster_path,
                  titoloOriginale: elementi.original_title,
                  lingua: elementi.original_language,
                  voto: elementi.vote_average
