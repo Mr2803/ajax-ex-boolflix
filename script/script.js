@@ -29,12 +29,12 @@ $(document).ready(function () {
 
 
 
-function callAjax() {
+function callAjax(){
    
 
       //salvo una variabile che include il valore da me inserito dall'utente
       var userInput = $("#my_input").val();
-      console.log("stai cercando" , userInput)
+      console.log("stai cercando" + userInput)
       
       $.ajax({
          url: "https://api.themoviedb.org/3/search/movie?api_key=86ad7638c6e9361746024a7df74fcc2a&query=" + userInput,
@@ -42,6 +42,8 @@ function callAjax() {
          success: function (data) {
            console.log(data.results)
            for (var i=0; i<data.results.length;i++){
+
+            //
               //il source mi restituisce il div per intero che ho inserito nell'html
               var source = $(".global-film").text();
 
@@ -52,13 +54,16 @@ function callAjax() {
                  titoloOriginale: data.results[i].original_title,
                  lingua: data.results[i].original_language,
                  voto: data.results[i].vote_average
-              }
+              };
+              //imposto una var html che costituirà il mio template
               var html = template(globalFilm);
               console.log(html);
 
+              //stampo in pagina
               $(".blocco-film").append(html);
            }
-               
+           //ripulisco 
+            /* $("#my_input").val("")    */
          },
          error: function (richiesta, stato, errori) {
             alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
