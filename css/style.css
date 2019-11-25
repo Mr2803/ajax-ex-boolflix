@@ -5,3 +5,36 @@
 .logo{
     color:red;
 }
+
+.blocco-film{
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.film{
+    width: calc(100% / 5 );
+    border: 1px solid;
+    text-align: center;
+    margin: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.film img{
+    width: 250px;
+    height: 350px;
+    align-self: center;
+}
+
+.titolo{
+    color:white;
+    font-size: 20px;
+}
+
+.originalTitle,
+.lingua,
+.voto{
+    color:grey;
+}

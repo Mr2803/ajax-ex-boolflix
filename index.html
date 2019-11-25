@@ -24,7 +24,7 @@
       </div>
       <div class="row">
          <div class="col-12">
-            <div class="blocco-film">
+            <div class="blocco-film d-flex mt-5">
                <!-- BLOCCO CHE VERRà RIEMPITO CON HANDLEBARS -->
             </div>
          </div>
@@ -38,10 +38,11 @@
    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
    <script class="global-film" type="text/x-handlebars-template">
       <div class="film">
-            <h2 class="titolo">titolo: {{titolo}}</h2>
-            <h2 class="author">titoloOriginale: {{titoloOriginale}}</h2>
-            <h2 class="lingua">lingua: {{lingua}}</h2>
-            <h2 class="voto">voto: {{voto}}</h2>
+            <h2 class="titolo">{{titolo}}</h2>
+            <img src="{{imglink}}" alt="poster">
+            <p class="originalTitle">Titolo originale : {{titoloOriginale}}</p>
+            <p class="lingua">Lingua :{{lingua}}</p>
+            <p class="voto">Giudizio : {{voto}}</p>
       </div>
                
            </script>

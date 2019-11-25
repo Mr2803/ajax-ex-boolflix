@@ -23,16 +23,17 @@ $(document).ready(function () {
    var search = $("#my_search");
 
    //imposto che al click della mia var search viene richiamata la funzione esterna
-   search.click(callAjax);
+   search.on("click",function(){
+      $(".blocco-film").html("")
+      callAjax();
+   });
 
 });
 
 
 
 function callAjax(){
-   
-
-      //salvo una variabile che include il valore da me inserito dall'utente
+   //salvo una variabile che include il valore da me inserito dall'utente
       var userInput = $("#my_input").val();
       console.log("stai cercando" + userInput)
       
@@ -42,7 +43,8 @@ function callAjax(){
          success: function (data) {
            console.log(data.results)
            for (var i=0; i<data.results.length;i++){
-
+            
+              var elementi = data.results[i]
             //HANDLEBARS
               //il source mi restituisce il div per intero che ho inserito nell'html
               var source = $(".global-film").text();
@@ -50,10 +52,11 @@ function callAjax(){
               var template = Handlebars.compile(source);
 
               var globalFilm  = {
-                 titolo: data.results[i].title,
-                 titoloOriginale: data.results[i].original_title,
-                 lingua: data.results[i].original_language,
-                 voto: data.results[i].vote_average
+                 titolo: elementi.title,
+                 imglink: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/' + elementi.poster_path,
+                 titoloOriginale: elementi.original_title,
+                 lingua: elementi.original_language,
+                 voto: elementi.vote_average
               };
               //imposto una var html che costituirà il mio template
               var html = template(globalFilm);
@@ -62,7 +65,7 @@ function callAjax(){
               //stampo in pagina
               $(".blocco-film").append(html);
            }
-           //ripulisco 
+           //ripulisco l'input inserito dall'user
             $("#my_input").val("")   
          },
          error: function (richiesta, stato, errori) {
