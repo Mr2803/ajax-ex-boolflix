@@ -22,6 +22,11 @@ $(document).ready(function () {
    //imposto una variabile search che corrisponde al mio tasto cerca
    var search = $("#my_search");
 
+   $("#show_page").click(function(){
+      $(".my_style-container").fadeIn();
+      $(".welcome-page").fadeOut(1)
+   })
+
    //imposto che al click della mia var search viene richiamata la funzione esterna
    search.on("click",function(){
       console.clear()
@@ -70,9 +75,7 @@ function callAjaxFilm(){
               var source = $(".global-film").text();
 
               var template = Handlebars.compile(source);
-
               
-
               var globalFilm  = {
                  titolo: elem.title,
                  imglink: createPoster(elem.poster_path) ,
@@ -119,6 +122,7 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
    for(var i=1; i<=5;i++){
       if(i<=voto){
          star += '<i class="fas fa-star"></i>';
+         console.log(star)
       } else{
          star += '<i class="far fa-star"></i>';
       }
@@ -137,9 +141,6 @@ function createFlag(flag){
          break;
       case "it":
             imgFlag = "<img src='img/it.png' width='30px'>";
-         break;
-      case "de":
-            imgFlag = "<img src='img/ger.png' width='30px'>";
          break;
       case "fr":
             imgFlag = "<img src='img/fr.png' width='30px'>";
@@ -196,7 +197,6 @@ function callAjaxSeries() {
 
             var template = Handlebars.compile(source);
             
-
             var globalSeries = {
                titolo: elem.name,
                imglink: createPoster(elem.poster_path),
