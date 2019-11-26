@@ -163,7 +163,7 @@ function createPoster(posterPath){
    var poster = 'https://image.tmdb.org/t/p/w500';
 
    if (posterPath == null){
-      poster = "img/netflix.png"
+      poster = "https://fontmeme.com/permalink/191126/4afe42c72da796daf5f2206c7126a97a.png"
    }else{
       poster += posterPath
    }
