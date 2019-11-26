@@ -6,7 +6,8 @@
     width: 30%;
 }
 
-.blocco-film{
+.blocco-film,
+.blocco-serie{
     flex-wrap: wrap;
     justify-content: center;
     

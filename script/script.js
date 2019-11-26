@@ -26,7 +26,9 @@ $(document).ready(function () {
    search.on("click",function(){
       console.clear()
       $(".blocco-film").html("")
-      callAjax();
+      $(".blocco-serie").html("")
+      callAjaxFilm();
+      callAjaxSeries();
    });
 
    $("#my_input").keyup(function(k){
@@ -34,7 +36,9 @@ $(document).ready(function () {
       if (k.keyCode == "13"){
          console.clear()
          $(".blocco-film").html("")
-         callAjax();
+         $(".blocco-serie").html("")
+         callAjaxFilm();
+         callAjaxSeries();
       }
    });
 
@@ -42,7 +46,7 @@ $(document).ready(function () {
 
 
 
-function callAjax(){
+function callAjaxFilm(){
    //salvo una variabile che include il valore da me inserito dall'utente
       var userInput = $("#my_input").val();
       console.log("stai cercando " + userInput)
@@ -111,14 +115,15 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
 
    for(var i=1; i<=5;i++){
       if(i<=voto){
-         star = '<i class="fas fa-star"></i>';
+         star += '<i class="fas fa-star"></i>';
       } else{
-         star = '<i class="far fa-star"></i>';
+         star += '<i class="far fa-star"></i>';
       }
    }
    return star;
-}
+};
 
+//funzione esterna per la creazione di bandiere
 function createFlag(flag){
    var imgFlag;
 
@@ -146,6 +151,57 @@ function createFlag(flag){
          imgFlag = "<img src='img/world.png' width='30px'>";
    }
    return imgFlag;
+};
+
+
+function callAjaxSeries() {
+   //salvo una variabile che include il valore da me inserito dall'utente
+   var userInput = $("#my_input").val();
+   console.log("stai cercando " + userInput)
+
+   $.ajax({
+      url: "https://api.themoviedb.org/3/search/tv",
+      method: "GET",
+      data: {
+         api_key: "86ad7638c6e9361746024a7df74fcc2a",
+         query: userInput,
+         language: "it-IT"
+
+      },
+      success: function (data) {
+         console.log(data.results)
+         for (var i = 0; i < data.results.length; i++) {
+
+            var elem = data.results[i]
+            //HANDLEBARS
+            //il source mi restituisce il div per intero che ho inserito nell'html
+            var source = $(".global-film").text();
+
+            var template = Handlebars.compile(source);
+
+            var globalSeries = {
+               titolo: elem.name,
+               imglink: 'https://image.tmdb.org/t/p/w500' + elem.poster_path,
+               titoloOriginale: elem.original_name,
+               lingua: elem.original_language,
+               flag: createFlag(elem.original_language),
+               voto: Math.ceil(elem.vote_average),
+               stars: createStars(Math.ceil(elem.vote_average))
+            };
+            //imposto una var html che costituirà il mio template
+            var html = template(globalSeries);
+            console.log(html);
+
+            //stampo in pagina
+            $(".blocco-serie").append(html);
+         }
+         //ripulisco l'input inserito dall'user
+         $("#my_input").val("")
+      },
+      error: function (richiesta, stato, errori) {
+         alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
+      }
+   })
 }
 
 
