@@ -67,10 +67,11 @@ function callAjaxFilm(){
          },
          success: function (data) {
             var films = data.results;
-            console.log(films);
-            printFilm(films);
+            var target = $(".blocco-film");
+            console.log("questo è un film" + films);
+            printFilmSeries(films, target, true);
            //ripulisco l'input inserito dall'user
-            $("#my_input").val("");   
+             $("#my_input").val("");   
          },
          error: function (richiesta, stato, errori) {
             alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
@@ -164,31 +165,9 @@ function callAjaxSeries() {
       },
       success: function (data) {
          console.log(data.results)
-         for (var i = 0; i < data.results.length; i++) {
-
-            var elem = data.results[i]
-            //HANDLEBARS
-            //il source mi restituisce il div per intero che ho inserito nell'html
-            var source = $(".global-film-series").text();
-
-            var template = Handlebars.compile(source);
-            
-            var globalSeries = {
-               titolo: elem.name,
-               imglink: createPoster(elem.poster_path),
-               titoloOriginale: elem.original_name,
-               lingua: elem.original_language,
-               flag: createFlag(elem.original_language),
-               voto: Math.ceil(elem.vote_average),
-               stars: createStars(Math.ceil(elem.vote_average))
-            };
-            //imposto una var html che costituirà il mio template
-            var html = template(globalSeries);
-            console.log(html);
-
-            //stampo in pagina
-            $(".blocco-serie").append(html);
-         }
+         var series = data.results;
+         var target = $(".blocco-serie");
+         printFilmSeries(series,target,false)
          //ripulisco l'input inserito dall'user
          $("#my_input").val("")
       },
@@ -198,11 +177,9 @@ function callAjaxSeries() {
    })
 }
 
-
-function printFilm(film){
-
-   var target = $(".blocco-film");
-
+//funzione esterna per la stampa dei film 
+function printFilmSeries(film, target, isFilm){
+   
    for (var i = 0; i < film.length; i++) {
       var elem = film[i];
       //HANDLEBARS
@@ -211,19 +188,28 @@ function printFilm(film){
 
       var template = Handlebars.compile(source);
 
+      if(isFilm == true){
+         var titolo = elem.title;
+         var titoloOriginale = elem.original_title;
+      }else{
+         var titolo = elem.name;
+         var titoloOriginale = elem.original_name
+      }
+
       var globalFilm = {
-         titolo: elem.title,
+         titolo: titolo,
          imglink: createPoster(elem.poster_path),
-         titoloOriginale: elem.original_title,
+         titoloOriginale: titoloOriginale,
          lingua: elem.original_language,
          flag: createFlag(elem.original_language),
          voto: Math.ceil(elem.vote_average),
          stars: createStars(Math.ceil(elem.vote_average))
       };
+      var html = template(globalFilm);
+      console.log(html);
+      target.append(html);
    }
-   var html = template(globalFilm);
-   console.log(html);
-   target.append(html);
+   
 }
 
 
