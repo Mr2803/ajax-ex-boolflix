@@ -66,35 +66,11 @@ function callAjaxFilm(){
 
          },
          success: function (data) {
-           console.log(data.results)
-           for (var i=0; i<data.results.length;i++){
-            
-              var elem = data.results[i]
-            //HANDLEBARS
-              //il source mi restituisce il div per intero che ho inserito nell'html
-              var source = $(".global-film").text();
-
-              var template = Handlebars.compile(source);
-              
-              var globalFilm  = {
-                 titolo: elem.title,
-                 imglink: createPoster(elem.poster_path) ,
-                 titoloOriginale: elem.original_title,
-                 lingua: elem.original_language,
-                 flag: createFlag(elem.original_language),
-                 voto: Math.ceil(elem.vote_average),
-                 stars: createStars(Math.ceil(elem.vote_average))
-              };
-              
-              //imposto una var html che costituirà il mio template
-              var html = template(globalFilm);
-              console.log(html);
-
-              //stampo in pagina
-              $(".blocco-film").append(html);
-           }
+            var films = data.results;
+            console.log(films);
+            printFilm(films);
            //ripulisco l'input inserito dall'user
-            $("#my_input").val("")   
+            $("#my_input").val("");   
          },
          error: function (richiesta, stato, errori) {
             alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
@@ -193,7 +169,7 @@ function callAjaxSeries() {
             var elem = data.results[i]
             //HANDLEBARS
             //il source mi restituisce il div per intero che ho inserito nell'html
-            var source = $(".global-film").text();
+            var source = $(".global-film-series").text();
 
             var template = Handlebars.compile(source);
             
@@ -206,11 +182,6 @@ function callAjaxSeries() {
                voto: Math.ceil(elem.vote_average),
                stars: createStars(Math.ceil(elem.vote_average))
             };
-
-            
-            if (elem.poster_path == null){
-               imglink ="prova"
-            }
             //imposto una var html che costituirà il mio template
             var html = template(globalSeries);
             console.log(html);
@@ -227,6 +198,33 @@ function callAjaxSeries() {
    })
 }
 
+
+function printFilm(film){
+
+   var target = $(".blocco-film");
+
+   for (var i = 0; i < film.length; i++) {
+      var elem = film[i];
+      //HANDLEBARS
+      //il source mi restituisce il div per intero che ho inserito nell'html
+      var source = $(".global-film-series").text();
+
+      var template = Handlebars.compile(source);
+
+      var globalFilm = {
+         titolo: elem.title,
+         imglink: createPoster(elem.poster_path),
+         titoloOriginale: elem.original_title,
+         lingua: elem.original_language,
+         flag: createFlag(elem.original_language),
+         voto: Math.ceil(elem.vote_average),
+         stars: createStars(Math.ceil(elem.vote_average))
+      };
+   }
+   var html = template(globalFilm);
+   console.log(html);
+   target.append(html);
+}
 
 
 //TO DO: USARE UNA FUNZIONE UNICA PER STAMPARE SIA SERIE TV CHE FILM
