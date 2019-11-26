@@ -1,4 +1,10 @@
-.my_style-container{
+*{
+ padding:0;
+ margin:0;
+ box-sizing: border-box;   
+}
+
+body{
     background:black;
 }
 
@@ -10,7 +16,12 @@
 .blocco-serie{
     flex-wrap: wrap;
     justify-content: center;
-    
+}
+
+#my_input,
+#my_search{
+    height: 30px;
+    margin-top:15px;
 }
 
 .film{

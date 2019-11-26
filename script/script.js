@@ -71,15 +71,18 @@ function callAjaxFilm(){
 
               var template = Handlebars.compile(source);
 
+              
+
               var globalFilm  = {
                  titolo: elem.title,
-                 imglink: 'https://image.tmdb.org/t/p/w500' + elem.poster_path,
+                 imglink: createPoster(elem.poster_path) ,
                  titoloOriginale: elem.original_title,
                  lingua: elem.original_language,
                  flag: createFlag(elem.original_language),
                  voto: Math.ceil(elem.vote_average),
                  stars: createStars(Math.ceil(elem.vote_average))
               };
+              
               //imposto una var html che costituirà il mio template
               var html = template(globalFilm);
               console.log(html);
@@ -128,7 +131,7 @@ function createFlag(flag){
    var imgFlag;
 
    switch (flag) {
-
+      //in questo caso i case verranno comparati con gli elementi iesimi (elem.original_language) della mia chiamata ajax
       case "en":
             imgFlag = "<img src='img/en.png' width='30px'>";
          break;
@@ -154,6 +157,20 @@ function createFlag(flag){
 };
 
 
+//funzione per generare i poster e gestira il caso in cui l'immagine è uguale a un valore nullo
+function createPoster(posterPath){
+   var poster = 'https://image.tmdb.org/t/p/w500';
+
+   if (posterPath == null){
+      poster = "img/netflix.png"
+   }else{
+      poster += posterPath
+   }
+
+   return poster;
+}
+
+//funzione esterna per la chiamate delle serie tv
 function callAjaxSeries() {
    //salvo una variabile che include il valore da me inserito dall'utente
    var userInput = $("#my_input").val();
@@ -178,16 +195,22 @@ function callAjaxSeries() {
             var source = $(".global-film").text();
 
             var template = Handlebars.compile(source);
+            
 
             var globalSeries = {
                titolo: elem.name,
-               imglink: 'https://image.tmdb.org/t/p/w500' + elem.poster_path,
+               imglink: createPoster(elem.poster_path),
                titoloOriginale: elem.original_name,
                lingua: elem.original_language,
                flag: createFlag(elem.original_language),
                voto: Math.ceil(elem.vote_average),
                stars: createStars(Math.ceil(elem.vote_average))
             };
+
+            
+            if (elem.poster_path == null){
+               imglink ="prova"
+            }
             //imposto una var html che costituirà il mio template
             var html = template(globalSeries);
             console.log(html);
@@ -206,3 +229,4 @@ function callAjaxSeries() {
 
 
 
+//TO DO: USARE UNA FUNZIONE UNICA PER STAMPARE SIA SERIE TV CHE FILM
