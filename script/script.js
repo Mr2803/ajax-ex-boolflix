@@ -53,30 +53,29 @@ $(document).ready(function () {
 
 function callAjaxFilm(){
    //salvo una variabile che include il valore da me inserito dall'utente
-      var userInput = $("#my_input").val();
-      console.log("stai cercando " + userInput)
-      
-      $.ajax({
-         url: "https://api.themoviedb.org/3/search/movie",
-         method: "GET",
-         data:{
-            api_key: "86ad7638c6e9361746024a7df74fcc2a",
-            query: userInput,
-            language:"it-IT"
+   var userInput = $("#my_input").val();
+   console.log("stai cercando " + userInput)
+   
+   $.ajax({
+      url: "https://api.themoviedb.org/3/search/movie",
+      method: "GET",
+      data:{
+         api_key: "86ad7638c6e9361746024a7df74fcc2a",
+         query: userInput,
+         language:"it-IT"
 
-         },
-         success: function (data) {
-            var films = data.results;
-            var target = $(".blocco-film");
-            console.log("questo è un film" + films);
-            printFilmSeries(films, target, true);
-           //ripulisco l'input inserito dall'user
-             $("#my_input").val("");   
-         },
-         error: function (richiesta, stato, errori) {
-            alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
-        }
-      })
+      },
+      success: function (data) {
+         var films = data.results;
+         var target = $(".blocco-film");
+         printFilmSeries(films, target, true);
+         //ripulisco l'input inserito dall'user
+            $("#my_input").val("");   
+      },
+      error: function (richiesta, stato, errori) {
+         alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
+      }
+   })
 }
 
 /* Milestone 2:
@@ -177,8 +176,8 @@ function callAjaxSeries() {
    })
 }
 
-//funzione esterna per la stampa dei film 
-function printFilmSeries(film, target, isFilm){
+//funzione esterna per la stampa dei film e delle serie tv
+function printFilmSeries(film, printHere, isFilm){
    
    for (var i = 0; i < film.length; i++) {
       var elem = film[i];
@@ -188,6 +187,8 @@ function printFilmSeries(film, target, isFilm){
 
       var template = Handlebars.compile(source);
 
+      //con questa condizione verifico che il mio terzo parametro sia uguale o meno ad un film passando poi come terzo argomento della funzione una condizione booleana (chiamata ajax).
+      //qualora fosse vera allora il title assumerà il valore richiesto dall'api per i film , se fosse falsa mi restiuirà i valori richiesti dall'api per le serie tv
       if(isFilm == true){
          var titolo = elem.title;
          var titoloOriginale = elem.original_title;
@@ -195,7 +196,7 @@ function printFilmSeries(film, target, isFilm){
          var titolo = elem.name;
          var titoloOriginale = elem.original_name
       }
-
+      
       var globalFilm = {
          titolo: titolo,
          imglink: createPoster(elem.poster_path),
@@ -207,7 +208,7 @@ function printFilmSeries(film, target, isFilm){
       };
       var html = template(globalFilm);
       console.log(html);
-      target.append(html);
+      printHere.append(html);
    }
    
 }
