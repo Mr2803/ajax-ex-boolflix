@@ -14,7 +14,12 @@
    <div class="container-fluid my_style-container">
       <div class="row">
          <div class="col-4">
-            <h2 class="logo">Boolflix</h2>
+            <div class="header-section">
+
+               <a href="https://fontmeme.com/netflix-font/"><img
+                     src="https://fontmeme.com/permalink/191126/646793dd12cd2fe24043bdf42bce4831.png" alt="netflix-font"
+                     border="0"></a>
+            </div>
          </div>
          <div class="col-8 d-flex justify-content-end">
             <input id="my_input" type="text">
@@ -41,7 +46,7 @@
          <img src="{{imglink}}" alt="poster">
          <p class="originalTitle">Titolo originale : {{titoloOriginale}}</p>
          <p class="lingua">Lingua :{{lingua}}</p>
-         <p class="voto">Giudizio :{{voto}}</p>
+         <p class="voto">Giudizio :{{voto}} <span>{{{stars}}}</span> </p>
       </div>
                
            </script>

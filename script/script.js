@@ -24,6 +24,7 @@ $(document).ready(function () {
 
    //imposto che al click della mia var search viene richiamata la funzione esterna
    search.on("click",function(){
+      console.clear()
       $(".blocco-film").html("")
       callAjax();
    });
@@ -31,7 +32,7 @@ $(document).ready(function () {
    $("#my_input").keyup(function(k){
       console.log(k.keycode)
       if (k.keyCode == "13"){
-
+         console.clear()
          $(".blocco-film").html("")
          callAjax();
       }
@@ -44,16 +45,22 @@ $(document).ready(function () {
 function callAjax(){
    //salvo una variabile che include il valore da me inserito dall'utente
       var userInput = $("#my_input").val();
-      console.log("stai cercando" + userInput)
+      console.log("stai cercando " + userInput)
       
       $.ajax({
-         url: "https://api.themoviedb.org/3/search/movie?api_key=86ad7638c6e9361746024a7df74fcc2a&query=" + userInput,
+         url: "https://api.themoviedb.org/3/search/movie",
          method: "GET",
+         data:{
+            api_key: "86ad7638c6e9361746024a7df74fcc2a",
+            query: userInput,
+            language:"it-IT"
+
+         },
          success: function (data) {
            console.log(data.results)
            for (var i=0; i<data.results.length;i++){
             
-              var elementi = data.results[i]
+              var elem = data.results[i]
             //HANDLEBARS
               //il source mi restituisce il div per intero che ho inserito nell'html
               var source = $(".global-film").text();
@@ -61,11 +68,12 @@ function callAjax(){
               var template = Handlebars.compile(source);
 
               var globalFilm  = {
-                 titolo: elementi.title,
-                 imglink: 'https://image.tmdb.org/t/p/w500' + elementi.poster_path,
-                 titoloOriginale: elementi.original_title,
-                 lingua: elementi.original_language,
-                 voto: elementi.vote_average
+                 titolo: elem.title,
+                 imglink: 'https://image.tmdb.org/t/p/w500' + elem.poster_path,
+                 titoloOriginale: elem.original_title,
+                 lingua: elem.original_language,
+                 voto: Math.ceil(elem.vote_average),
+                 stars: createStars(Math.ceil(elem.vote_average))
               };
               //imposto una var html che costituirà il mio template
               var html = template(globalFilm);
@@ -81,6 +89,33 @@ function callAjax(){
             alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
         }
       })
+}
+
+/* Milestone 2:
+Trasformiamo il numero da 1 a 10 decimale in un numero intero da 1 a 5, così da permetterci di stampare a schermo un numero di stelle piene che vanno da 1 a 5, lasciando le restanti vuote (troviamo le icone in FontAwesome).
+Arrotondiamo sempre per eccesso all’unità successiva, non gestiamo icone mezze piene (o mezze vuote :P)
+Trasformiamo poi la stringa statica della lingua in una vera e propria bandiera della nazione corrispondente, gestendo il caso in cui non abbiamo la bandiera della nazione ritornata dall’API (le flag non ci sono in FontAwesome).
+
+Allarghiamo poi la ricerca anche alle serie tv. Con la stessa azione di ricerca dovremo prendere sia i film che corrispondono alla query, sia le serie tv, stando attenti ad avere alla fine dei valori simili (le serie e i film hanno campi nel JSON di risposta diversi, simili ma non sempre identici)
+Qui un esempio di chiamata per le serie tv:
+https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=scrubs
+ */
+
+ //funzione esterna per la creazione delle stelle
+ function createStars(voto){
+    //imposto la mia variabile con la metà del valore per ottenere una valutazione in quinti anzichè in decimi
+   var voto = voto/2;
+
+   var star = "";
+
+   for(var i=1; i<=5;i++){
+      if(i<=voto){
+         star += '<i class="fas fa-star"></i>'
+      } else{
+         star += '<i class="far fa-star"></i>'
+      }
+   }
+   return star;
 }
 
 
