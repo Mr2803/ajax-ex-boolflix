@@ -43,9 +43,9 @@
    <script class="global-film" type="text/x-handlebars-template">
       <div class="film">
          <h2 class="titolo">{{titolo}}</h2>
-         <img src="{{imglink}}" alt="poster">
+         <img class="poster" src="{{imglink}}" alt="poster">
          <p class="originalTitle">Titolo originale : {{titoloOriginale}}</p>
-         <p class="lingua">Lingua :{{lingua}}</p>
+         <p class="lingua">Lingua :{{lingua}} <span>{{{flag}}}</span></p>
          <p class="voto">Giudizio :{{voto}} <span>{{{stars}}}</span> </p>
       </div>
                

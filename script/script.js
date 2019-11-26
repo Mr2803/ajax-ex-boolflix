@@ -72,6 +72,7 @@ function callAjax(){
                  imglink: 'https://image.tmdb.org/t/p/w500' + elem.poster_path,
                  titoloOriginale: elem.original_title,
                  lingua: elem.original_language,
+                 flag: createFlag(elem.original_language),
                  voto: Math.ceil(elem.vote_average),
                  stars: createStars(Math.ceil(elem.vote_average))
               };
@@ -103,19 +104,48 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
 
  //funzione esterna per la creazione delle stelle
  function createStars(voto){
-    //imposto la mia variabile con la metà del valore per ottenere una valutazione in quinti anzichè in decimi
+    //imposto la mia variabile con la metà del valore per ottenere una valutazione in quinti anzichè in decimi,questa quindi verrà sostituita con l elemento iesimo dell'array del voto
    var voto = voto/2;
 
    var star = "";
 
    for(var i=1; i<=5;i++){
       if(i<=voto){
-         star += '<i class="fas fa-star"></i>'
+         star = '<i class="fas fa-star"></i>';
       } else{
-         star += '<i class="far fa-star"></i>'
+         star = '<i class="far fa-star"></i>';
       }
    }
    return star;
+}
+
+function createFlag(flag){
+   var imgFlag;
+
+   switch (flag) {
+
+      case "en":
+            imgFlag = "<img src='img/en.png' width='30px'>";
+         break;
+      case "it":
+            imgFlag = "<img src='img/it.png' width='30px'>";
+         break;
+      case "de":
+            imgFlag = "<img src='img/ger.png' width='30px'>";
+         break;
+      case "fr":
+            imgFlag = "<img src='img/fr.png' width='30px'>";
+         break;
+      case "usa":
+            imgFlag = "<img src='img/usa.png' width='30px'>";
+         break;
+      case "es":
+            imgFlag = "<img src='img/es.png' width='30px'>";
+         break;
+      default:
+         imgFlag = "<img src='img/world.png' width='30px'>";
+   }
+   return imgFlag;
 }
 
 

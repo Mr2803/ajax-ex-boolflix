@@ -22,7 +22,7 @@
     justify-content: space-between;
 }
 
-.film img{
+.film img.poster{
     width: 250px;
     height: 350px;
     align-self: center;
