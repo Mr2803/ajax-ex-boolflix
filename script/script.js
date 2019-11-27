@@ -196,9 +196,9 @@ function printFilmSeries(film, isFilm){
          var titoloOriginale = elem.original_title;
          var printHere = $(".blocco-film");
       }else{
-         var titolo = elem.name;
-         var titoloOriginale = elem.original_name
-         var printHere = $(".blocco-serie");
+         titolo = elem.name;
+         titoloOriginale = elem.original_name
+         printHere = $(".blocco-serie");
       }
       
       var globalFilm = {
@@ -225,7 +225,7 @@ https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg */
 
 //funzione per generare i poster e gestirà il caso in cui l'immagine è uguale a un valore nullo
 function createPoster(posterPath) {
-   var poster = 'https://image.tmdb.org/t/p/w500';
+   var poster = 'https://image.tmdb.org/t/p/w154';
 
    if (posterPath == null) {
       poster = "https://fontmeme.com/permalink/191126/4afe42c72da796daf5f2206c7126a97a.png"
@@ -255,9 +255,9 @@ function showHideInfo(){
 
 //funzione per gestire la trama se è o meno presente
 function overview(overview) {
-   var trama =""
+   var trama ="";
    if (overview.length < 1) {
-      trama = "Non abbiamo una trama disponibile"
+      trama = " Mi spiace, al momento non abbiamo una trama disponibile per questo titolo"
    } else{
       trama += overview
    }
