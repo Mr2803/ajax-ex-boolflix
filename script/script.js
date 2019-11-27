@@ -96,12 +96,16 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
    var star = "";
 
    for(var i=1; i<=5;i++){
-      if(i<=voto){
+      //soluzione alternativa con operatore ternario
+      star += (i <= voto) 
+      ? '<i class="fas fa-star"></i>' 
+      : '<i class="far fa-star"></i>'
+      /* if(i<=voto){
          star += '<i class="fas fa-star"></i>';
          console.log(star)
       } else{
          star += '<i class="far fa-star"></i>';
-      }
+      } */
    }
    return star;
 };
@@ -134,7 +138,7 @@ function createFlag(flag){
 };
 
 
-//funzione per generare i poster e gestira il caso in cui l'immagine è uguale a un valore nullo
+//funzione per generare i poster e gestirà il caso in cui l'immagine è uguale a un valore nullo
 function createPoster(posterPath){
    var poster = 'https://image.tmdb.org/t/p/w500';
 
@@ -212,6 +216,3 @@ function printFilmSeries(film, printHere, isFilm){
    }
    
 }
-
-
-//TO DO: USARE UNA FUNZIONE UNICA PER STAMPARE SIA SERIE TV CHE FILM
