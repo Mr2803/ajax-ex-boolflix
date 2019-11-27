@@ -67,6 +67,7 @@ body{
 .film img.poster{
     width: 250px;
     height: 350px;
+    max-width: 100%;
     align-self: center;
 }
 

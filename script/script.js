@@ -67,8 +67,7 @@ function callAjaxFilm(){
       },
       success: function (data) {
          var films = data.results;
-         var target = $(".blocco-film");
-         printFilmSeries(films, target, true);
+         printFilmSeries(films, true);
          //ripulisco l'input inserito dall'user
             $("#my_input").val("");   
       },
@@ -148,18 +147,7 @@ function createFlag(flag){
 };
 
 
-//funzione per generare i poster e gestirà il caso in cui l'immagine è uguale a un valore nullo
-function createPoster(posterPath){
-   var poster = 'https://image.tmdb.org/t/p/w500';
 
-   if (posterPath == null){
-      poster = "https://fontmeme.com/permalink/191126/4afe42c72da796daf5f2206c7126a97a.png"
-   }else{
-      poster += posterPath
-   }
-
-   return poster;
-}
 
 //funzione esterna per la chiamate delle serie tv
 function callAjaxSeries() {
@@ -179,8 +167,7 @@ function callAjaxSeries() {
       success: function (data) {
          console.log(data.results)
          var series = data.results;
-         var target = $(".blocco-serie");
-         printFilmSeries(series,target,false)
+         printFilmSeries(series,false)
          //ripulisco l'input inserito dall'user
          $("#my_input").val("")
       },
@@ -191,7 +178,7 @@ function callAjaxSeries() {
 }
 
 //funzione esterna per la stampa dei film e delle serie tv
-function printFilmSeries(film, printHere, isFilm){
+function printFilmSeries(film, isFilm){
    
    for (var i = 0; i < film.length; i++) {
       var elem = film[i];
@@ -206,9 +193,11 @@ function printFilmSeries(film, printHere, isFilm){
       if(isFilm == true){
          var titolo = elem.title;
          var titoloOriginale = elem.original_title;
+         var printHere = $(".blocco-film");
       }else{
          var titolo = elem.name;
          var titoloOriginale = elem.original_name
+         var printHere = $(".blocco-serie");
       }
       
       var globalFilm = {
@@ -225,4 +214,22 @@ function printFilmSeries(film, printHere, isFilm){
       printHere.append(html);
    }
    
+}
+
+/* Milestone 3:
+In questa milestone come prima cosa aggiungiamo la copertina del film o della serie al nostro elenco.Ci viene passata dall’API solo la parte finale dell’URL, questo perché poi potremo generare da quella porzione di URL tante dimensioni diverse.Dovremo prendere quindi l’URL base delle immagini di TMDB: https://image.tmdb.org/t/p/ per poi aggiungere la dimensione che vogliamo generare (troviamo tutte le dimensioni possibili a questo link: https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400) per poi aggiungere la parte finale dell’URL passata dall’API.
+Esempio di URL che torna la copertina di BORIS:
+https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg */
+
+//funzione per generare i poster e gestirà il caso in cui l'immagine è uguale a un valore nullo
+function createPoster(posterPath) {
+   var poster = 'https://image.tmdb.org/t/p/w500';
+
+   if (posterPath == null) {
+      poster = "https://fontmeme.com/permalink/191126/4afe42c72da796daf5f2206c7126a97a.png"
+   } else {
+      poster += posterPath
+   }
+
+   return poster;
 }
