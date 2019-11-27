@@ -32,8 +32,7 @@ $(document).ready(function () {
       console.clear()
       $(".blocco-film").html("")
       $(".blocco-serie").html("")
-      callAjaxFilm();
-      callAjaxSeries();
+      callAjaxFilmSeries();
    });
 
    $("#my_input").keyup(function(k){
@@ -42,16 +41,17 @@ $(document).ready(function () {
          console.clear()
          $(".blocco-film").html("")
          $(".blocco-serie").html("")
-         callAjaxFilm();
-         callAjaxSeries();
+         callAjaxFilmSeries();
       }
    });
+
+   showHideInfo();
 
 });
 
 
 
-function callAjaxFilm(){
+function callAjaxFilmSeries(){
    //salvo una variabile che include il valore da me inserito dall'utente
    var userInput = $("#my_input").val();
    console.log("stai cercando " + userInput)
@@ -75,6 +75,33 @@ function callAjaxFilm(){
          alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
       }
    })
+   //funzione esterna per la chiamate delle serie tv
+   
+      //salvo una variabile che include il valore da me inserito dall'utente
+      var userInput = $("#my_input").val();
+      console.log("stai cercando " + userInput)
+
+      $.ajax({
+         url: "https://api.themoviedb.org/3/search/tv",
+         method: "GET",
+         data: {
+            api_key: "86ad7638c6e9361746024a7df74fcc2a",
+            query: userInput,
+            language: "it-IT"
+
+         },
+         success: function (data) {
+            console.log(data.results)
+            var series = data.results;
+            printFilmSeries(series, false)
+            //ripulisco l'input inserito dall'user
+            $("#my_input").val("")
+         },
+         error: function (richiesta, stato, errori) {
+            alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
+         }
+      })
+  
 }
 
 /* Milestone 2:
@@ -149,33 +176,7 @@ function createFlag(flag){
 
 
 
-//funzione esterna per la chiamate delle serie tv
-function callAjaxSeries() {
-   //salvo una variabile che include il valore da me inserito dall'utente
-   var userInput = $("#my_input").val();
-   console.log("stai cercando " + userInput)
 
-   $.ajax({
-      url: "https://api.themoviedb.org/3/search/tv",
-      method: "GET",
-      data: {
-         api_key: "86ad7638c6e9361746024a7df74fcc2a",
-         query: userInput,
-         language: "it-IT"
-
-      },
-      success: function (data) {
-         console.log(data.results)
-         var series = data.results;
-         printFilmSeries(series,false)
-         //ripulisco l'input inserito dall'user
-         $("#my_input").val("")
-      },
-      error: function (richiesta, stato, errori) {
-         alert("E' avvenuto un errore. " + " " + richiesta + " " + stato + " " + errori);
-      }
-   })
-}
 
 //funzione esterna per la stampa dei film e delle serie tv
 function printFilmSeries(film, isFilm){
@@ -232,4 +233,20 @@ function createPoster(posterPath) {
    }
 
    return poster;
+}
+
+/* Mileston4:
+Trasformiamo quello che abbiamo fatto fino ad ora in una vera e propria webapp, creando un layout completo simil-Netflix:
+Un header che contiene logo e search bar
+Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma di “card” in cui lo sfondo è rappresentato dall’immagine di copertina (consiglio la poster_path con w342)
+Andando con il mouse sopra una card (on hover), appaiono le informazioni aggiuntive già prese nei punti precedenti più la overview
+ */
+
+function showHideInfo(){
+   $(document).on("mouseenter", ".film", function () {
+      $(this).find(".info").removeClass("hidden")
+   })
+   $(document).on("mouseleave", ".info", function () {
+      $(this).addClass("hidden")
+   })
 }

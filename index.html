@@ -30,7 +30,7 @@
             <div class="header-section">
 
                <a href="https://fontmeme.com/netflix-font/"><img
-                     src="https://fontmeme.com/permalink/191126/646793dd12cd2fe24043bdf42bce4831.png" alt="netflix-font"
+                     src="https://fontmeme.com/permalink/191127/f238be6dff4b67ae8ce279c17763f433.png" alt="netflix-font"
                      border="0"></a>
             </div>
          </div>
@@ -62,11 +62,14 @@
    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
    <script class="global-film-series" type="text/x-handlebars-template">
       <div class="film">
-         <h2 class="titolo">{{titolo}}</h2>
          <img class="poster" src="{{imglink}}" alt="poster">
-         <p class="originalTitle">Titolo originale : {{titoloOriginale}}</p>
-         <p class="lingua">Lingua :{{lingua}} <span>{{{flag}}}</span></p>
-         <p class="voto">Giudizio :{{voto}} <span>{{{stars}}}</span> </p>
+         <div class="info hidden">
+
+            <h2 class="titolo">{{titolo}}</h2>
+            <p class="originalTitle">Titolo originale : {{titoloOriginale}}</p>
+            <p class="lingua">Lingua :{{lingua}} <span>{{{flag}}}</span></p>
+            <p class="voto">Giudizio :{{voto}} <span>{{{stars}}}</span> </p>
+         </div>
       </div>
                
            </script>
