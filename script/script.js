@@ -208,7 +208,8 @@ function printFilmSeries(film, isFilm){
          lingua: elem.original_language,
          flag: createFlag(elem.original_language),
          voto: Math.ceil(elem.vote_average),
-         stars: createStars(Math.ceil(elem.vote_average))
+         stars: createStars(Math.ceil(elem.vote_average)),
+         overview: overview(elem.overview)
       };
       var html = template(globalFilm);
       console.log(html);
@@ -242,6 +243,7 @@ Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma d
 Andando con il mouse sopra una card (on hover), appaiono le informazioni aggiuntive già prese nei punti precedenti più la overview
  */
 
+ //funzione per gestire le info sull'hover delle immagini
 function showHideInfo(){
    $(document).on("mouseenter", ".film", function () {
       $(this).find(".info").removeClass("hidden")
@@ -249,4 +251,16 @@ function showHideInfo(){
    $(document).on("mouseleave", ".info", function () {
       $(this).addClass("hidden")
    })
+}
+
+//funzione per gestire la trama se è o meno presente
+function overview(overview) {
+   var trama =""
+   if (overview.length < 1) {
+      trama = "Non abbiamo una trama disponibile"
+   } else{
+      trama += overview
+   }
+
+   return trama;
 }

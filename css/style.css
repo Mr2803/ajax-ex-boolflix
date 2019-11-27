@@ -21,9 +21,7 @@ body{
     font-size: 30px;
 }
 
-.hidden{
-    display:none;
-}
+
 
 .profile{
     border:3px solid rgb(61, 58, 58);
@@ -61,7 +59,8 @@ body{
     margin: 10px;
     display:flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     position:relative;
 }
 
@@ -80,7 +79,7 @@ body{
 .originalTitle,
 .lingua,
 .voto{
-    color:grey;
+    color:white;
 }
 
 .info{
@@ -90,4 +89,18 @@ body{
     top:0;
     left:0;
     background: rgba(0, 0, 0, 0.507);
+    color:white;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.overview{
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.hidden{
+    display:none;
 }
