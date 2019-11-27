@@ -112,9 +112,19 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
 
 //funzione esterna per la creazione di bandiere
 function createFlag(flag){
-   var imgFlag;
+   var imgFlag = [
 
-   switch (flag) {
+      "en", "es", "it", "fr", "usa", "de"
+   ];
+   
+   if (imgFlag.includes(flag)){
+      return "<img src='img/" + flag + ".png' + width='30px'>";
+   }
+
+   return "<img src='img/world.png' width='30px'>";
+
+//SOLUZIONE CON LO SWITCH
+  /*  switch (flag) {
       //in questo caso i case verranno comparati con gli elementi iesimi (elem.original_language) della mia chiamata ajax
       case "en":
             imgFlag = "<img src='img/en.png' width='30px'>";
@@ -133,8 +143,8 @@ function createFlag(flag){
          break;
       default:
          imgFlag = "<img src='img/world.png' width='30px'>";
-   }
-   return imgFlag;
+   } */
+   /* return imgFlag; */
 };
 
 
