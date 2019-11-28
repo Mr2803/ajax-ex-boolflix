@@ -68,6 +68,15 @@ function callAjaxFilmSeries(){
       success: function (data) {
          var films = data.results;
          printFilmSeries(films, true);
+         var sliderLengthFilm;
+         var lunghezza = $(".blocco-film > .film").length * 200;
+         if (lunghezza > $(window).width()) {
+            sliderLengthFilm = lunghezza - $(window).width();
+         } else{
+            sliderLengthFilm = 0;
+         }
+         console.log(sliderLengthFilm, lunghezza, $(window).width())
+         slider(sliderLengthFilm,".carousel_uiFilm");
          //ripulisco l'input inserito dall'user
             $("#my_input").val("");   
       },
@@ -91,9 +100,18 @@ function callAjaxFilmSeries(){
 
          },
          success: function (data) {
-            console.log(data.results)
             var series = data.results;
             printFilmSeries(series, false)
+            var sliderLengthSeries;
+            var lunghezza = $(".blocco-serie > .film").length * 200;
+            if (lunghezza > $(window).width()) {
+               sliderLengthSeries = lunghezza - $(window).width();
+            } else {
+               sliderLengthSeries = 0;
+            }
+            console.log("queste sono le serie" + sliderLengthSeries, lunghezza, $(window).width())
+            slider(sliderLengthSeries, ".carousel_uiSeries");
+            
             //ripulisco l'input inserito dall'user
             $("#my_input").val("")
          },
@@ -179,6 +197,7 @@ function printFilmSeries(film, isFilm){
    
    for (var i = 0; i < film.length; i++) {
       var elem = film[i];
+      console.log(elem)
       //HANDLEBARS
       //il source mi restituisce il div per intero che ho inserito nell'html
       var source = $(".global-film-series").text();
@@ -262,12 +281,25 @@ function overview(overview) {
 }
 
 
-// Slider film test
-$(".carousel_ui").draggable(
-   {
-      axis: "x", // asse si sposamento
-      opacity: 0.7, // opacità
-      cursor: "grabbing"
+// Slider film/series test
+function slider(maxScroll,selector){
 
-   }
-);
+   $(selector).draggable(
+      {
+         axis: "x", // asse si spostamento
+         opacity: 0.6, // opacità
+         cursor: "grabbing",
+   
+         drag: function (event, ui) {
+            // lo scrollmax potrebbe essere uguale alla width del contenitore film per il numero di risultati ottenuti tradotto in numero negativo 
+            
+            
+            //con questo imposto il left minimo. Impostandolo a 0 faccio in modo che non sia possibile scorrere da destra verso sinistra appena visualizzati i risultati.
+            ui.position.left = Math.min(0, ui.position.left);
+            ui.position.left = Math.max(-maxScroll, ui.position.left);
+         }
+   
+      }
+   
+   );
+}

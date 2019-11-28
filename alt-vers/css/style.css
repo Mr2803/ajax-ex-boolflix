@@ -1,3 +1,4 @@
+/* REGOLE GENERALI */
 *{
  padding:0;
  margin:0;
@@ -11,7 +12,9 @@ body{
     background-attachment: fixed;
     overflow: hidden;
 }
+/* FINE REGOLE GENERALI */
 
+/* PRIMA PAGINA VISIBILE PER L'ACCESSO */
 .welcome-page{
     height: 100vh;
     background:black;
@@ -35,16 +38,11 @@ body{
 .profile img{
     width: 100%;
 }
+/*FINE PRIMA PAGINA VISIBILE PER L'ACCESSO */
 
+/* SEZIONE SUPERIORE BARRA DI RICERCA&LOGO */
 .header-section img{
     width: 30%;
-}
-
-.blocco-film,
-.blocco-serie{
-    justify-content: center;
-    height: 250px;
-    display: -webkit-box!important;
 }
 
 #my_input,
@@ -52,27 +50,33 @@ body{
     height: 30px;
     margin-top:15px;
 }
+/* FINE SEZIONE SUPERIORE BARRA DI RICERCA&LOGO */
 
-.my_style-carousel{
-    overflow:hidden;
+/* REGOLE GENERALI PER IL BLOCCO GLOBALE DI FILM E SERIE TV */
+.blocco-film,
+.blocco-serie{
+    height: 250px;
+    display: -webkit-box!important;
 }
+/* FINE REGOLE GENERALI PER IL BLOCCO GLOBALE DI FILM E SERIE TV */
 
+
+
+/* BLOCCO TEMPLATE HANDLEBARS */
 .film{
-    width: calc(100% / 6 );
+    width:190px;
     border: 1px solid;
     text-align: center;
-    margin: 10px;
+    margin-right: 10px;
     display:flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     position:relative;
 }
 
 .film img.poster{
-    max-width: 100%;
+    width: 100%;
     align-self: center;
-    height: 233px;
 }
 
 .titolo{
@@ -98,14 +102,19 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
 }
 
 .overview{
-    height: 80px;
-    max-height: 100%;
-    overflow-y: scroll;
+    height: 40px;
 }
 
 .hidden{
     display:none;
+}
+/* BLOCCO TEMPLATE HANDLEBARS */
+
+/* JQUERY UI */
+.my_style-carousel{
+    overflow:hidden;
 }
