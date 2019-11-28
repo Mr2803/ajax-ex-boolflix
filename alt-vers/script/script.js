@@ -44,12 +44,10 @@ $(document).ready(function () {
          callAjaxFilmSeries();
       }
    });
-
+   //richiamo la funzione per mostrare le info sul click
    showHideInfo();
 
 });
-
-
 
 function callAjaxFilmSeries(){
    //salvo una variabile che include il valore da me inserito dall'utente
@@ -68,14 +66,19 @@ function callAjaxFilmSeries(){
       success: function (data) {
          var films = data.results;
          printFilmSeries(films, true);
+
+         //imposto una var che assumerà il valore dello scroll max all'interno della mia funzione slider
          var sliderLengthFilm;
+         //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 10 )
          var lunghezza = $(".blocco-film > .film").length * 200;
+         //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
          if (lunghezza > $(window).width()) {
             sliderLengthFilm = lunghezza - $(window).width();
-         } else{
+         } else{ //altrimenti lo slider non servirà e quindi imposto lo scorll a 0 (caso in cui i risultati mostrati sono pochi)
             sliderLengthFilm = 0;
          }
          console.log(sliderLengthFilm, lunghezza, $(window).width())
+         //richiamo la mia funzione slider passando come parametro lo sliderLengthFilm , che rappresenterà la mia lunghezza di scroll max e il div al quale fare riferimento(uniche 2 variabili che cambiano)
          slider(sliderLengthFilm,".carousel_uiFilm");
          //ripulisco l'input inserito dall'user
             $("#my_input").val("");   
@@ -102,14 +105,18 @@ function callAjaxFilmSeries(){
          success: function (data) {
             var series = data.results;
             printFilmSeries(series, false)
+            //imposto una var che assumerà il valore dello scroll max all'interno della mia funzione slider
             var sliderLengthSeries;
+            //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 10 )
             var lunghezza = $(".blocco-serie > .film").length * 200;
+            //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
             if (lunghezza > $(window).width()) {
                sliderLengthSeries = lunghezza - $(window).width();
             } else {
                sliderLengthSeries = 0;
             }
             console.log("queste sono le serie" + sliderLengthSeries, lunghezza, $(window).width())
+            //richiamo la mia funzione slider passando come parametro lo sliderLengthSeries , che rappresenterà la mia lunghezza di scroll max e il div al quale fare riferimento(uniche 2 variabili che cambiano)
             slider(sliderLengthSeries, ".carousel_uiSeries");
             
             //ripulisco l'input inserito dall'user
@@ -144,12 +151,6 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
       star += (i <= voto) 
       ? '<i class="fas fa-star"></i>' 
       : '<i class="far fa-star"></i>'
-      /* if(i<=voto){
-         star += '<i class="fas fa-star"></i>';
-         console.log(star)
-      } else{
-         star += '<i class="far fa-star"></i>';
-      } */
    }
    return star;
 };
@@ -157,7 +158,6 @@ https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&
 //funzione esterna per la creazione di bandiere
 function createFlag(flag){
    var imgFlag = [
-
       "en", "es", "it", "fr", "usa", "de"
    ];
    
@@ -166,29 +166,6 @@ function createFlag(flag){
    }
 
    return "<img src='img/world.png' width='30px'>";
-
-//SOLUZIONE CON LO SWITCH
-  /*  switch (flag) {
-      //in questo caso i case verranno comparati con gli elementi iesimi (elem.original_language) della mia chiamata ajax
-      case "en":
-            imgFlag = "<img src='img/en.png' width='30px'>";
-         break;
-      case "it":
-            imgFlag = "<img src='img/it.png' width='30px'>";
-         break;
-      case "fr":
-            imgFlag = "<img src='img/fr.png' width='30px'>";
-         break;
-      case "usa":
-            imgFlag = "<img src='img/usa.png' width='30px'>";
-         break;
-      case "es":
-            imgFlag = "<img src='img/es.png' width='30px'>";
-         break;
-      default:
-         imgFlag = "<img src='img/world.png' width='30px'>";
-   } */
-   /* return imgFlag; */
 };
 
 
@@ -204,7 +181,7 @@ function printFilmSeries(film, isFilm){
 
       var template = Handlebars.compile(source);
 
-      //con questa condizione verifico che il mio terzo parametro sia uguale o meno ad un film passando poi come terzo argomento della funzione una condizione booleana (chiamata ajax).
+      //con questa condizione verifico che il mio terzo parametro sia uguale o meno ad un film passando poi come terzo argomento della funzione una condizione booleana ( vedi chiamata ajax).
       //qualora fosse vera allora il title assumerà il valore richiesto dall'api per i film , se fosse falsa mi restiuirà i valori richiesti dall'api per le serie tv
       if(isFilm == true){
          var titolo = elem.title;
@@ -284,22 +261,16 @@ function overview(overview) {
 // Slider film/series test
 function slider(maxScroll,selector){
 
-   $(selector).draggable(
-      {
+   $(selector).draggable({
          axis: "x", // asse si spostamento
          opacity: 0.6, // opacità
          cursor: "grabbing",
    
          drag: function (event, ui) {
-            // lo scrollmax potrebbe essere uguale alla width del contenitore film per il numero di risultati ottenuti tradotto in numero negativo 
-            
-            
             //con questo imposto il left minimo. Impostandolo a 0 faccio in modo che non sia possibile scorrere da destra verso sinistra appena visualizzati i risultati.
             ui.position.left = Math.min(0, ui.position.left);
+             // lo scrollmax potrebbe essere uguale alla width del contenitore film per il numero di risultati ottenuti tradotto in numero negativo 
             ui.position.left = Math.max(-maxScroll, ui.position.left);
          }
-   
-      }
-   
-   );
+      });
 }
