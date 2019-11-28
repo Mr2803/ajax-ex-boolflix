@@ -69,8 +69,8 @@ function callAjaxFilmSeries(){
 
          //imposto una var che assumerà il valore dello scroll max all'interno della mia funzione slider
          var sliderLengthFilm;
-         //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 10 )
-         var lunghezza = $(".blocco-film > .film").length * 200;
+         //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 20 )
+         var lunghezza = $(".blocco-film > .film").length * 210;
          //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
          if (lunghezza > $(window).width()) {
             sliderLengthFilm = lunghezza - $(window).width();
@@ -108,7 +108,7 @@ function callAjaxFilmSeries(){
             //imposto una var che assumerà il valore dello scroll max all'interno della mia funzione slider
             var sliderLengthSeries;
             //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 10 )
-            var lunghezza = $(".blocco-serie > .film").length * 200;
+            var lunghezza = $(".blocco-serie > .film").length * 210;
             //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
             if (lunghezza > $(window).width()) {
                sliderLengthSeries = lunghezza - $(window).width();
