@@ -18,9 +18,9 @@ Voto
  */
 
 $(document).ready(function () {
-
-   //imposto una variabile search che corrisponde al mio tasto cerca
-   var search = $("#my_search");
+   $(".profile").on("mouseenter mouseleave", function (event) {
+      $("#_user").toggleClass("red");
+   });
 
    $("#show_page").click(function(){
       $(".my_style-container").fadeIn();
@@ -28,6 +28,7 @@ $(document).ready(function () {
    })
 
    //imposto che al click della mia var search viene richiamata la funzione esterna
+   var search = $("#my_search");
    search.on("click",function(){
       console.clear()
       $(".blocco-film").html("")
@@ -69,7 +70,7 @@ function callAjaxFilmSeries(){
 
          //imposto una var che assumerà il valore dello scroll max all'interno della mia funzione slider
          var sliderLengthFilm;
-         //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 20 )
+         //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 20 ) + altri 20 (per lo style)
          var lunghezza = $(".blocco-film > .film").length * 210 + 20;
          //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
          if (lunghezza > $(window).width()) {
@@ -107,7 +108,7 @@ function callAjaxFilmSeries(){
             printFilmSeries(series, false)
             //imposto una var che assumerà il valore dello scroll max all'interno della mia funzione slider
             var sliderLengthSeries;
-            //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 10 )
+            //la mia var lunghezza rappresenta il numero dei div generati dalla ricerca moltiplicati * la width dei miei contenitori + il margine che ho dato (190 + 20 ) + altri 20 (per lo style)
             var lunghezza = $(".blocco-serie > .film").length * 210 + 20;
             //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
             if (lunghezza > $(window).width()) {
@@ -258,7 +259,7 @@ function overview(overview) {
 }
 
 
-// Slider film/series test
+// Slider film/series
 function slider(maxScroll,selector){
 
    $(selector).draggable({
