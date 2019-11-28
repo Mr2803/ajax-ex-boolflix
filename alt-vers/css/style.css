@@ -97,15 +97,13 @@ box-shadow: -8px -7px 20px -7px rgba(255,255,255,1)
     align-self: center;
 }
 
-.titolo{
-    color:white;
-    font-size: 20px;
-}
 
 .originalTitle,
 .lingua,
-.voto{
+.voto,
+.overview{
     color:white;
+    font-size: 13px;
 }
 
 .info{
@@ -121,7 +119,21 @@ box-shadow: -8px -7px 20px -7px rgba(255,255,255,1)
     justify-content: center;
     align-items: center;
     overflow-y: auto;
+    text-transform: uppercase;
 }
+.titolo{
+    color:white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+
+.info i{
+    color:yellow
+}
+
+
 
 .overview{
     height: 40px;
