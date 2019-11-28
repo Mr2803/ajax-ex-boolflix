@@ -241,7 +241,7 @@ Andando con il mouse sopra una card (on hover), appaiono le informazioni aggiunt
 
  //funzione per gestire le info sull'hover delle immagini
 function showHideInfo(){
-   $(document).on("mouseenter", ".film", function () {
+   $(document).on("click", ".film", function () {
       $(this).find(".info").removeClass("hidden")
    })
    $(document).on("mouseleave", ".info", function () {
@@ -260,3 +260,14 @@ function overview(overview) {
 
    return trama;
 }
+
+
+// Slider film test
+$(".carousel_ui").draggable(
+   {
+      axis: "x", // asse si sposamento
+      opacity: 0.7, // opacità
+      cursor: "grabbing"
+
+   }
+);
