@@ -58,8 +58,8 @@ $(document).ready(function () {
       var urlMovie = 'https://api.themoviedb.org/3/search/movie';
       var urlTv = 'https://api.themoviedb.org/3/search/tv';
       var userInput = $("#my_input").val();
-      var widthFilm = $(".blocco-film > .film").length * 210 + 20;
-      var widthSerie = $(".blocco-serie > .film").length * 210 + 20;
+      var widthFilm = ".blocco-film > .film";
+      var widthSerie = ".blocco-serie > .film";
       var sliderFilm = ".carousel_uiFilm";
       var sliderSeries = ".carousel_uiSeries";
       callAjaxFilmSeries(urlMovie, userInput, true, widthFilm,sliderFilm);
@@ -75,8 +75,8 @@ $(document).ready(function () {
          var urlMovie = 'https://api.themoviedb.org/3/search/movie';
          var urlTv = 'https://api.themoviedb.org/3/search/tv';
          var userInput = $("#my_input").val();
-         var widthFilm = $(".blocco-film > .film").length * 210 + 20;
-         var widthSerie = $(".blocco-serie > .film").length * 210 + 20;
+         var widthFilm = ".blocco-film > .film";
+         var widthSerie = ".blocco-serie > .film";
          var sliderFilm = ".carousel_uiFilm";
          var sliderSeries = ".carousel_uiSeries";
          callAjaxFilmSeries(urlMovie, userInput, true, widthFilm, sliderFilm);
@@ -88,7 +88,7 @@ $(document).ready(function () {
 });
 
 //funzione per chiamate ajax con funzioni interne
-function callAjaxFilmSeries(url,userInput,type,width,whereSlide){
+function callAjaxFilmSeries(url, userInput, type, myLength,whereSlide){
    $.ajax({
       url: url,
       method: "GET",
@@ -101,16 +101,16 @@ function callAjaxFilmSeries(url,userInput,type,width,whereSlide){
          var films = data.results;
          printFilmSeries(films, type);
          var sliderLength;
+         var width = $(myLength).length*210 + 20;
+         console.log("questo è il valore di width" +width)
          //pongo una condizione e imposto che se la mia var lunghezza è maggiore della width della viewport allora la mia var sliderLengthFilm assume il valore che mi serve
          if (width > $(window).width()) {
             sliderLength = width - $(window).width();
-            console.log("risultato sottrazione" + sliderLength)
+            console.log("risultato sottrazione" +sliderLength)
             
          } else{ //altrimenti lo slider non servirà e quindi imposto lo scorll a 0 (caso in cui i risultati mostrati sono pochi)
             sliderLength = 0;
          }
-
-         console.log("questa è la lunghezza " + sliderLength, width*210 + 20, $(window).width())
          //richiamo la mia funzione slider passando come parametro lo sliderLength , che rappresenterà la mia lunghezza di scroll max e il div al quale fare riferimento(uniche 2 variabili che cambiano)
          slider(sliderLength, whereSlide);
          //ripulisco l'input inserito dall'user
